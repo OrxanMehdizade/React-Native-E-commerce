@@ -14,8 +14,6 @@ import {fetchData} from '@utils/fetchData';
 import Input from '../components/Input';
 
 const ForgotPassword = () => {
-  // Enable if more than one user type exists in app
-  // const userType = storage.getString('userType');
   const [emailSent, setEmailSent] = useState(false);
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,20 +22,17 @@ const ForgotPassword = () => {
   const resetPassword = async () => {
     if (email) {
       const result = await fetchData({
-        // Set the reset password url here
         url: `${API_URL}/`,
         headers: {
           'Content-Type': 'application/json',
         },
         method: 'POST',
-        // Change request body if needed
         body: {email: email},
         setLoading,
       });
 
       result?.success ? setEmailSent(true) : alert(result.error);
     } else {
-      // Alert for if the email is empty
       alert(t(''), t(''));
     }
   };
@@ -59,7 +54,6 @@ const ForgotPassword = () => {
       </StyledText>
 
       <Input
-        // Change the key name if needed
         inputName="email"
         inputValue={email}
         handleInputChange={value => {
@@ -101,7 +95,6 @@ const ForgotPassword = () => {
       <StyledTouchableOpacity
         className="rounded-[18px] p-[10px] bg-[#76F5A4] mt-8"
         onPress={() => {
-          // Function that opens mail app on user's phone
           openInbox();
         }}>
         <StyledText className="font-poppi-semibold text-base text-[#204F50] text-center">

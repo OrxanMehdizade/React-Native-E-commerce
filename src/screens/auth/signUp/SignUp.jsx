@@ -21,8 +21,6 @@ import storage from '@utils/MMKVStore';
 import PhoneInput from './components/PhoneInput';
 
 const SignUp = () => {
-  // Enable if more than one user type exists in app
-  // const userType = storage.getString('userType');
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
   const [termsConditionsAccepted, setTermsConditionsAccepted] = useState(false);
@@ -33,16 +31,12 @@ const SignUp = () => {
   const [phoneNumValue, setPhoneNumValue] = useState();
 
   const handleInputChange = (name, value) => {
-    // Check if the name is first_name or last_name
     if (name === 'name' || name === 'surname') {
-      // Check if the value contains any numbers
       if (/\d/.test(value)) {
-        // If the value contains numbers, do not update the state
         return;
       }
     }
 
-    // Update the state only if the conditions are met
     setFormData(prevFormData => ({
       ...prevFormData,
       [name]: value,
@@ -50,9 +44,6 @@ const SignUp = () => {
   };
 
   const checkConditions = async () => {
-    /* Function that creates account, needs to be modified
-      if termsConditionsAccepted is not needed
-     */
     const result = await createAccount({
       formData: formData,
       setLoading: setLoading,
@@ -62,9 +53,7 @@ const SignUp = () => {
     });
 
     if (result?.success) {
-      /* Navigate to Homepage if Register API returns access tokens,
-       else change the route to Login screen
-      */
+      
       navigation.navigate('HomePage');
     }
   };
@@ -90,7 +79,6 @@ const SignUp = () => {
           {t('attributes.registerInfoParentTitle')}
         </StyledText>
         <Input
-          // Change inputName according to API scheme
           inputName="name"
           inputValue={formData?.name}
           handleInputChange={handleInputChange}
@@ -98,7 +86,6 @@ const SignUp = () => {
           error={errors?.name}
         />
         <Input
-          // Change inputName according to API scheme
           inputName="surname"
           inputValue={formData?.surname}
           handleInputChange={handleInputChange}
@@ -115,7 +102,6 @@ const SignUp = () => {
         />
 
         <Input
-          // Change inputName according to API scheme
           inputName="email"
           inputValue={formData?.email}
           handleInputChange={handleInputChange}
@@ -123,7 +109,6 @@ const SignUp = () => {
           error={errors?.email}
         />
         <PasswordInput
-          // Change inputName according to API scheme
           inputName="password"
           inputValue={formData?.password}
           handleInputChange={handleInputChange}
@@ -131,7 +116,6 @@ const SignUp = () => {
           error={errors?.password}
         />
         <PasswordInput
-          // Change inputName according to API scheme
           inputName="password_confirm"
           inputValue={formData?.password_confirm}
           handleInputChange={handleInputChange}
@@ -140,14 +124,12 @@ const SignUp = () => {
         />
 
         <AddPhoto
-          // Component for adding user photo, remove if not needed
           data={formData?.photo}
           setData={setFormData}
           error={errors?.photo}
         />
 
         <Input
-          // Multiline input example, remove if not needed
           inputName="work_experience"
           inputValue={formData?.work_experience}
           handleInputChange={handleInputChange}
@@ -169,7 +151,6 @@ const SignUp = () => {
         </StyledTouchableOpacity>
 
         <AcceptTermsAndConditions
-          // Component for accepting terms and conditions
           accepted={termsConditionsAccepted}
           setAccepted={setTermsConditionsAccepted}
         />
